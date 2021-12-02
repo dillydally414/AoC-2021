@@ -34,7 +34,11 @@ class Day(unittest.TestCase):
         print("Part 1: " + str(self.part1(self.problem)))
 
     def test_part2_sample(self):
+        if self.part2_sample_ans is None:
+            return
         self.assertEqual(self.part2(self.sample), self.part2_sample_ans)
 
     def test_part2_problem(self):
+        if self.part2_sample_ans is None:
+            return
         print("Part 2: " + str(self.part2(self.problem)))
