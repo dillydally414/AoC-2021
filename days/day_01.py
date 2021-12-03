@@ -11,6 +11,14 @@ def convert_to_int(a):
     return b
 
 
+def count_greater(a, shift):
+    count = 0
+    for x in range(shift, len(a)):
+        if a[x] > a[x - shift]:
+            count += 1
+    return count
+
+
 class Day01(Day):
     sample = convert_to_int(sampleFile.readlines())
     problem = convert_to_int(problemFile.readlines())
@@ -18,16 +26,7 @@ class Day01(Day):
     part2_sample_ans = 5
 
     def part1(self, a):
-        count = 0
-        for x in range(1, len(a)):
-            if a[x] > a[x - 1]:
-                count += 1
-        return count
+        return count_greater(a, 1)
 
     def part2(self, a):
-        count = 0
-        for x in range(3, len(a)):
-            if a[x] > a[x - 3]:
-                count += 1
-        return count
-
+        return count_greater(a, 3)
