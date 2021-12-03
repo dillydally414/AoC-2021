@@ -28,10 +28,12 @@ class Day(unittest.TestCase):
         pass
 
     def test_part1_sample(self):
-        self.assertEqual(self.part1(self.sample), self.part1_sample_ans)
+        if self.part2_sample_ans is None:
+            self.assertEqual(self.part1(self.sample), self.part1_sample_ans)
 
     def test_part1_problem(self):
-        print("Part 1: " + str(self.part1(self.problem)))
+        if self.part2_sample_ans is None:
+            print("Part 1: " + str(self.part1(self.problem)))
 
     def test_part2_sample(self):
         if self.part2_sample_ans is None:
