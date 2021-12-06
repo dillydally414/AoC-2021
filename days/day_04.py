@@ -7,22 +7,33 @@ problemFile = open('../problems/day_04.txt', 'r')
 class BingoCard(object):
     def __init__(self, card):
         self.card = card[:]
+        self.marked = [[False for j in range(len(card[i]))] for i in range(len(card))]
 
-    def won(self, nums):
-        if len(nums) < 5:
-            return False
-        for x in range(len(self.card)):
+    def mark(self, num):
+        for i in range(len(self.card)):
+            for j in range(len(self.card[i])):
+                if num == self.card[i][j]:
+                    self.marked[i][j] = True
+                    return
+
+    def won(self):
+        for x in range(len(self.marked)):
             true_x = True
             true_y = True
-            for y in range(len(self.card)):
-                true_x = true_x and self.card[x][y] in nums
-                true_y = true_y and self.card[y][x] in nums
+            for y in range(len(self.marked[x])):
+                true_x = true_x and self.marked[x][y]
+                true_y = true_y and self.marked[y][x]
             if true_x or true_y:
                 return True
         return False
 
-    def sum(self, marked_numbers):
-        return sum([sum([(lambda i: 0 if i in marked_numbers else i)(num) for num in row]) for row in self.card])
+    def sum(self):
+        return sum([
+            sum([
+                (lambda c: 0 if self.marked[row][c] else self.card[row][c])(col)
+                for col in range(len(self.card[row]))
+            ]) for row in range(len(self.card))
+        ])
 
 
 class Bingo(object):
@@ -42,19 +53,22 @@ class Bingo(object):
             self.bingo_cards.append(BingoCard(bingo_cards[i]))
 
     def winning_board_value(self):
-        for i in range(len(self.num_order)):
+        for num in self.num_order:
             for card in self.bingo_cards:
-                if card.won(self.num_order[0:i + 1]):
-                    return card.sum(self.num_order[0:i + 1]) * self.num_order[i]
+                card.mark(num)
+                if card.won():
+                    return card.sum() * num
         return None
 
     def losing_board_value(self):
         not_won_yet = self.bingo_cards[:]
-        for i in range(len(self.num_order)):
-            for card in not_won_yet:
-                if card.won(self.num_order[0:i + 1]):
+        for num in self.num_order:
+            not_won_yet_updated = not_won_yet[:]
+            for card in not_won_yet_updated:
+                card.mark(num)
+                if card.won():
                     if not_won_yet.__len__() == 1:
-                        return card.sum(self.num_order[0:i + 1]) * self.num_order[i]
+                        return card.sum() * num
                     else:
                         not_won_yet.remove(card)
         return None
