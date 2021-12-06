@@ -50,21 +50,23 @@ class Day05(Day):
 
     def part1(self, a):
         lines = filter(lambda line: not line.diagonal, a)
-        diagram = dict()
-        for line in lines:
-            for point in line.points:
-                if point in diagram:
-                    diagram[point] = 1
-                else:
-                    diagram[point] = 0
-        return sum(diagram.values())
-
-    def part2(self, a):
-        diagram = dict()
+        once = set()
+        mult = set()
         for line in a:
             for point in line.points:
-                if point in diagram:
-                    diagram[point] = 1
+                if point in once:
+                    mult.add(point)
                 else:
-                    diagram[point] = 0
-        return sum(diagram.values())
+                    once.add(point)
+        return len(mult)
+
+    def part2(self, a):
+        once = set()
+        mult = set()
+        for line in a:
+            for point in line.points:
+                if point in once:
+                    mult.add(point)
+                else:
+                    once.add(point)
+        return len(mult)
