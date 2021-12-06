@@ -29,7 +29,7 @@ class Day(unittest.TestCase):
 
     def test_part1_sample(self):
         if self.part2_sample_ans is None:
-            self.assertEqual(self.part1(self.sample), self.part1_sample_ans)
+            self.assertEqual(self.part1_sample_ans, self.part1(self.sample),)
 
     def test_part1_problem(self):
         if self.part2_sample_ans is None:
@@ -38,7 +38,7 @@ class Day(unittest.TestCase):
     def test_part2_sample(self):
         if self.part2_sample_ans is None:
             return
-        self.assertEqual(self.part2(self.sample), self.part2_sample_ans)
+        self.assertEqual(self.part2_sample_ans, self.part2(self.sample))
 
     def test_part2_problem(self):
         if self.part2_sample_ans is None:
