@@ -17,8 +17,10 @@ class Day07(Day):
         return fuel
 
     def part2(self, a):
+        mean = sum(a) / (float(len(a)))
+        mean_floor = int(mean)
+        mean_ceil = mean_floor + 1
         costs = [(i * (i + 1) / 2) for i in range(0, max(a) + 1)]
-        fuel = costs[max(a)] * len(a)
-        for center in range(min(a), max(a)):
-            fuel = min(fuel, sum(costs[abs(num - center)] for num in a))
-        return fuel
+        mean_floor_fuel = sum(costs[abs(num - mean_floor)] for num in a)
+        mean_ceil_fuel = sum(costs[abs(num - mean_ceil)] for num in a)
+        return min(mean_floor_fuel, mean_ceil_fuel)
