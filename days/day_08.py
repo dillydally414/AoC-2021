@@ -38,13 +38,13 @@ class Day08(Day):
 
             two_three_five = input[3:6]
             for i in range(0, 3):
-                if len(two_three_five[i] | two_three_five[(i + 1) % 3]) == 7:
-                    signal_mapping[3] = two_three_five[(i + 2) % 3]
-                    two_three_five.pop((i + 2) % 3)
+                if signal_mapping[1] < two_three_five[i]:  # 1 is subset of 3
+                    signal_mapping[3] = two_three_five[i]
+                    two_three_five.pop(i)
                     break
 
             four_minus_one = signal_mapping[4] - signal_mapping[1]  # bd
-            if len(four_minus_one - two_three_five[0]) == 0:
+            if four_minus_one < two_three_five[0]:  # (4 - 1) is subset of 5
                 signal_mapping[2] = two_three_five[1]
                 signal_mapping[5] = two_three_five[0]
             else:
@@ -53,17 +53,17 @@ class Day08(Day):
 
             zero_six_nine = input[6:9]
             for i in range(0, 3):
-                if len(signal_mapping[1] | zero_six_nine[i]) == 7:
+                if not signal_mapping[1] < zero_six_nine[i]:  # 1 is not subset of 6
                     signal_mapping[6] = zero_six_nine[i]
                     zero_six_nine.pop(i)
                     break
 
-            if len(signal_mapping[4] | zero_six_nine[0]) == 7:
-                signal_mapping[0] = zero_six_nine[0]
-                signal_mapping[9] = zero_six_nine[1]
-            else:
+            if signal_mapping[4] < zero_six_nine[0]:  # 4 is subset of 9
                 signal_mapping[0] = zero_six_nine[1]
                 signal_mapping[9] = zero_six_nine[0]
+            else:
+                signal_mapping[0] = zero_six_nine[0]
+                signal_mapping[9] = zero_six_nine[1]
 
             output = line[1]
             output_val = 0
