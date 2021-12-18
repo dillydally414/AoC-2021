@@ -3,19 +3,23 @@ from abc import abstractmethod, abstractproperty
 
 
 class Day(unittest.TestCase):
-    @abstractproperty
+    @property
+    @abstractmethod
     def sample(self):
         pass
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def problem(self):
         pass
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def part1_sample_ans(self):
         pass
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def part2_sample_ans(self):
         pass
 
